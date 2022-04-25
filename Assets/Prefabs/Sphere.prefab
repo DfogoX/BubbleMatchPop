@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8168504727871319954}
   - component: {fileID: 8168504727871319955}
   - component: {fileID: 2555222620790125302}
+  - component: {fileID: 8986084790446402016}
   m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
@@ -122,3 +123,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2776025ccc0349ef9057dd341b2f86af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bubbleExplosion: {fileID: 9049468329317432709, guid: af9a5f86f76d6964e83ca45002c64451, type: 3}
+--- !u!95 &8986084790446402016
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168504727871319953}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4a907d2d6fcd59e41aecf0139be72784, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

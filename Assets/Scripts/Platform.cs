@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Platform : MonoBehaviour
 {
     
-    [SerializeField] float duration = 1.0f;
+    [SerializeField] float rotationDuration = 1.0f;
     public Action OnStartRotating;
     public Action OnEndRotating;
 
@@ -35,9 +36,9 @@ public class Platform : MonoBehaviour
         var startEuler = startRot.eulerAngles;
         var endRot = Quaternion.Euler(startEuler.x, startEuler.y+60, startEuler.z);
 
-        for (float t = 0; t < duration; t+= Time.fixedDeltaTime) 
+        for (float t = 0; t < rotationDuration; t+= Time.fixedDeltaTime) 
         {
-            transform.rotation = Quaternion.Lerp(startRot, endRot, t);
+            transform.rotation = Quaternion.Lerp(startRot, endRot, t/rotationDuration);
             yield return new WaitForFixedUpdate();    
         }
 
