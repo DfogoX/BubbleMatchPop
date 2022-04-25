@@ -4,11 +4,13 @@ using UnityEngine;
 public class Bubble : MonoBehaviour
 {
     private Bubble lastBubbleTouched;
+    private Color bubbleColor;
     private bool touching;
     private Platform _platform;
 
     private void Start()
     {
+        bubbleColor = GetComponent<Renderer>().material.color;
         _platform = transform.parent.GetComponent<Platform>();
         if (_platform != null)
         {
@@ -20,13 +22,10 @@ public class Bubble : MonoBehaviour
     private void CheckMatch()
     {
         if (!touching) return;
-        //TODO: replace if with validate colors match
-        if (true)
-        {
-            //Debug.Log($"Pop the Bubbles!!");
-            lastBubbleTouched.PopBubble();
-            PopBubble();
-        }
+        if (lastBubbleTouched.GetBubbleMaterial() != bubbleColor) return;
+        Debug.Log($"Pop the Bubbles!!");
+        lastBubbleTouched.PopBubble();
+        PopBubble();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -44,10 +43,14 @@ public class Bubble : MonoBehaviour
         touching = false;
     }
 
-
-    public void PopBubble()
+    private void PopBubble()
     {
         _platform.OnEndRotating -= CheckMatch;
         Destroy(gameObject);
-    } 
+    }
+
+    private Color GetBubbleMaterial()
+    {
+        return bubbleColor;
+    }
 }
