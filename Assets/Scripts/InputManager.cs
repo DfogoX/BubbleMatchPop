@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
         #endif
     }
 
-    private void FixedUpdate(){
+    private void Update(){
         _input.UpdateInput();
     }
 }
