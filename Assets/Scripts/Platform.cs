@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class Platform : MonoBehaviour
 {
     
-    [SerializeField] float rotationDuration = 1.0f;
+    [SerializeField] private float rotationDuration = 1.0f;
     public Action OnStartRotating;
     public Action OnEndRotating;
 

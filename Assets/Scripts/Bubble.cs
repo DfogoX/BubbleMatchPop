@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
-    private Bubble lastBubbleTouched;
-    private Color bubbleColor;
-    private bool touching;
-    private bool exploding;
+    private Bubble _lastBubbleTouched;
+    private Color _bubbleColor;
+    private bool _touching;
+    private bool _exploding;
     private Platform _platform;
     public Action OnBubblePop;
     private Animator _anim;
@@ -14,11 +14,15 @@ public class Bubble : MonoBehaviour
 
     private void Start()
     {
-        bubbleColor = GetComponent<Renderer>().material.color;
-        _platform = transform.parent.GetComponent<Platform>();
-        if (_platform != null)
+        _bubbleColor = GetComponent<Renderer>().material.color;
+        var p = transform.parent;
+        if (p != null)
         {
-            _platform.OnEndRotating += CheckMatch;
+            _platform = transform.parent.GetComponent<Platform>();
+            if (_platform != null)
+            {
+                _platform.OnEndRotating += CheckMatch;
+            }    
         }
 
         _anim = GetComponent<Animator>();
@@ -27,35 +31,35 @@ public class Bubble : MonoBehaviour
 
     private void CheckMatch()
     {
-        if (!touching) return;
-        if (lastBubbleTouched.exploding) return;
-        if (lastBubbleTouched.GetBubbleMaterial() != bubbleColor) return;
+        if (!_touching) return;
+        if (_lastBubbleTouched._exploding) return;
+        if (_lastBubbleTouched.GetBubbleMaterial() != _bubbleColor) return;
         Debug.Log($"Pop the Bubbles!!");
-        lastBubbleTouched.PopBubble();
+        _lastBubbleTouched.PopBubble();
         PopBubble();
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        touching = true;
+        _touching = true;
         var otherBubble = other.gameObject.GetComponent<Bubble>();
         if (otherBubble != null)
         {
-            lastBubbleTouched = otherBubble;
+            _lastBubbleTouched = otherBubble;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        touching = false;
+        _touching = false;
     }
 
     private void PopBubble()
     {
         OnBubblePop?.Invoke();
-        exploding = true;
-        _platform.OnEndRotating -= CheckMatch;
+        _exploding = true;
         _anim.Play("FadeAnimation");
+        if (_platform != null) _platform.OnEndRotating -= CheckMatch;
     }
 
     //event added on end of animation started in PopBubble
@@ -64,11 +68,17 @@ public class Bubble : MonoBehaviour
         Destroy(gameObject);
         var explosion = Instantiate(bubbleExplosion, transform.position, Quaternion.identity);
         var main = explosion.GetComponent<ParticleSystem>().main;
-        main.startColor = bubbleColor;
+        main.startColor = GetComponent<Renderer>().material.color;
     }
 
     private Color GetBubbleMaterial()
     {
-        return bubbleColor;
+        return _bubbleColor;
+    }
+
+    public void MenuPop()
+    {
+        PopBubble();
+        Debug.Log($"gonna disappear : {transform.localScale}");
     }
 }
