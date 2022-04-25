@@ -23,8 +23,7 @@ public class Platform : MonoBehaviour
 
     public void RotatePlatform()
     {
-        Debug.Log($"Touched {gameObject.name} with rotation: {GameManager.instance.GetIsRotating()}");
-        if (GameManager.instance.GetIsRotating()) return;
+        if (GameManager.GmInstance.GetIsRotating()) return;
         StartCoroutine(InteractionRotate());
     }
 

@@ -20,7 +20,6 @@ public abstract class InputSystem : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.red, 2.0f );
         if (Physics.Raycast(ray, out hitData, Mathf.Infinity, platformLayer))
         {
-            Debug.Log("was hit");
             var plat = hitData.collider.GetComponent<Platform>();
             // could validate if the collider exist, to be extra sure, even though the prefab contains it
             if (plat != null)

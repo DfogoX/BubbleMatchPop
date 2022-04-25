@@ -7,6 +7,7 @@ public class Bubble : MonoBehaviour
     private Color bubbleColor;
     private bool touching;
     private Platform _platform;
+    public Action OnBubblePop;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class Bubble : MonoBehaviour
         {
             _platform.OnEndRotating += CheckMatch;
         }
+
     }
 
 
@@ -45,6 +47,7 @@ public class Bubble : MonoBehaviour
 
     private void PopBubble()
     {
+        OnBubblePop?.Invoke();
         _platform.OnEndRotating -= CheckMatch;
         Destroy(gameObject);
     }
