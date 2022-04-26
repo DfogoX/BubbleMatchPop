@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
     public static GameManager GmInstance { get; private set; }
     private bool isRotating;
     [SerializeField] private LevelBuilder _levelBuilder;
-    [SerializeField] private LevelData _level;
+    [SerializeField] private LevelData[] _levels;
+    private int _levelIndex = 1;
+    private int _lastLevel; 
 
     private void Awake()
     {
@@ -22,10 +24,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (_level != null)
+        if (_levels != null)
         {
-            _levelBuilder.BuildLevel(_level);    
+            _levelBuilder.BuildLevel(_levels[_levelIndex]);    
         }
+
+        _lastLevel = PlayerPrefs.GetInt("lastlevel");
         
         
         var plats = FindObjectsOfType<Platform>();
@@ -50,6 +54,11 @@ public class GameManager : MonoBehaviour
     public bool GetIsRotating()
     {
         return isRotating;
+    }
+
+    public void SetIndex(int index)
+    {
+        _levelIndex = index;
     }
 
 }

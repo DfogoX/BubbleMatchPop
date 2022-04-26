@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelBuilder : MonoBehaviour
 {
     [SerializeField] private GameObject PlatformPrefab;
+    private int _totalBubbles;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class LevelBuilder : MonoBehaviour
             o.transform.rotation*=Quaternion.Euler(-90,0,0);
             Debug.Log($"Created platform on: {o.transform.position} with rotation: {o.transform.rotation.eulerAngles}");
             var bubbles = o.GetComponentsInChildren <Bubble>();
+            _totalBubbles += bubbles.Length;
             var colors = p.GetPlatformBubbles();
             for (int i = 0; i < bubbles.Length; i++)
             {
