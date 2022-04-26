@@ -34,7 +34,6 @@ public class Bubble : MonoBehaviour
         if (!_touching) return;
         if (_lastBubbleTouched._exploding) return;
         if (_lastBubbleTouched.GetBubbleColor() != _bubbleRenderer.material.color) return;
-        Debug.Log($"Pop the Bubbles!!");
         _lastBubbleTouched.PopBubble();
         PopBubble();
     }
@@ -88,6 +87,5 @@ public class Bubble : MonoBehaviour
     public void MenuPop()
     {
         PopBubble();
-        Debug.Log($"gonna disappear : {transform.localScale}");
     }
 }

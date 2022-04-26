@@ -6,6 +6,7 @@ public class ScoringManager : MonoBehaviour
     public static ScoringManager SmInstance { get; private set; }
     
     private ScoringSystem _scoring;
+    private int totalBubbles;
     
     private void Awake()
     {
@@ -22,7 +23,6 @@ public class ScoringManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"here");
         var plats = FindObjectsOfType<Platform>();
         foreach (var p in plats)
         {
@@ -32,6 +32,7 @@ public class ScoringManager : MonoBehaviour
         foreach (var b in bubbles)
         {
             b.OnBubblePop += BubblePopped;
+            totalBubbles++;
         }
         
     }
@@ -40,6 +41,10 @@ public class ScoringManager : MonoBehaviour
     {
         _scoring.IncreaseBubblesPoppedCount();
         UIManager.UIInstance.UpdateBubblesPoppedScore(_scoring.GetBubblesPoppedCount());
+        if (_scoring.GetBubblesPoppedCount() == totalBubbles)
+        {
+            GameManager.GmInstance.LevelCompleted();
+        }
     }
 
     public void PlatformRotated()

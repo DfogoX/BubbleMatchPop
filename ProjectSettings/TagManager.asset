@@ -7,6 +7,12 @@ TagManager:
   - Platform
   - PlatformRotationsScore
   - BubblesPoppedScore
+  - MainMenu
+  - LevelsMenu
+  - PauseMenu
+  - ScoringMenu
+  - LevelScore
+  - VictoryMenu
   layers:
   - Default
   - TransparentFX

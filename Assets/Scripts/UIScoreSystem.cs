@@ -7,6 +7,7 @@ public class UIScoreSystem : MonoBehaviour
 {
     private Text _rotationsText;
     private Text _bubblesPoppedText;
+    private Text _levelText;
 
     private void Awake()
     {
@@ -29,6 +30,16 @@ public class UIScoreSystem : MonoBehaviour
         {
             _bubblesPoppedText = popScore.GetComponentInChildren<Text>();
         }
+        
+        var levelScore = GameObject.FindWithTag("LevelScore");
+        if (popScore == null)
+        {
+            Debug.LogWarning($"LevelScore Tag not found");
+        }
+        else
+        {
+            _levelText = levelScore.GetComponentInChildren<Text>();
+        }
     }
 
     private void Start()
@@ -47,4 +58,12 @@ public class UIScoreSystem : MonoBehaviour
         if (_bubblesPoppedText == null) return;
         _bubblesPoppedText.text = $"Bubbles Popped: {bubblesPopped}";
     }
+    
+    public void UpdateLevelScore(int level)
+    {
+        if (_levelText == null) return;
+        _levelText.text = $"Level {level}";
+    }
+    
+    
 }

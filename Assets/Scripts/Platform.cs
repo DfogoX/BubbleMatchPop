@@ -30,7 +30,6 @@ public class Platform : MonoBehaviour
 
     private IEnumerator InteractionRotate()
     {
-        Debug.Log("Starting Rotation");
         OnStartRotating?.Invoke();
         var startRot = transform.rotation;
         var startEuler = startRot.eulerAngles;
@@ -43,7 +42,6 @@ public class Platform : MonoBehaviour
         }
 
         transform.rotation = endRot;
-        Debug.Log("Ending Rotation");
         OnEndRotating?.Invoke();
     }
 }

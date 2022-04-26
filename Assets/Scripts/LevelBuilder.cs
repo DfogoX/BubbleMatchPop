@@ -1,4 +1,3 @@
-using System;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -19,14 +18,12 @@ public class LevelBuilder : MonoBehaviour
         foreach (var p in plats)
         {
             var o = Instantiate(PlatformPrefab, p.GetPlatformPosition(), Quaternion.identity);
-            o.transform.rotation*=Quaternion.Euler(-90,0,0);
-            Debug.Log($"Created platform on: {o.transform.position} with rotation: {o.transform.rotation.eulerAngles}");
+            o.transform.rotation*=Quaternion.Euler(-90,30,0);
             var bubbles = o.GetComponentsInChildren <Bubble>();
             _totalBubbles += bubbles.Length;
             var colors = p.GetPlatformBubbles();
             for (int i = 0; i < bubbles.Length; i++)
             {
-                Debug.Log($"coloring bubble: {bubbles[i]}");
                 bubbles[i].SetBubbleColor(colors[i]);
             }
         }
