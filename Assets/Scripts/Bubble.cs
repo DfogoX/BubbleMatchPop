@@ -4,7 +4,7 @@ using UnityEngine;
 public class Bubble : MonoBehaviour
 {
     private Bubble _lastBubbleTouched;
-    private Color _bubbleColor;
+    private Renderer _bubbleRenderer;
     private bool _touching;
     private bool _exploding;
     private Platform _platform;
@@ -14,7 +14,7 @@ public class Bubble : MonoBehaviour
 
     private void Start()
     {
-        _bubbleColor = GetComponent<Renderer>().material.color;
+        _bubbleRenderer = GetComponent<Renderer>();
         var p = transform.parent;
         if (p != null)
         {
@@ -33,7 +33,7 @@ public class Bubble : MonoBehaviour
     {
         if (!_touching) return;
         if (_lastBubbleTouched._exploding) return;
-        if (_lastBubbleTouched.GetBubbleMaterial() != _bubbleColor) return;
+        if (_lastBubbleTouched.GetBubbleColor() != _bubbleRenderer.material.color) return;
         Debug.Log($"Pop the Bubbles!!");
         _lastBubbleTouched.PopBubble();
         PopBubble();
@@ -68,12 +68,21 @@ public class Bubble : MonoBehaviour
         Destroy(gameObject);
         var explosion = Instantiate(bubbleExplosion, transform.position, Quaternion.identity);
         var main = explosion.GetComponent<ParticleSystem>().main;
-        main.startColor = GetComponent<Renderer>().material.color;
+        main.startColor = _bubbleRenderer.material.color;
     }
 
-    private Color GetBubbleMaterial()
+    public void SetBubbleColor(Color c)
     {
-        return _bubbleColor;
+        if (_bubbleRenderer == null)
+        {
+            _bubbleRenderer = GetComponent<Renderer>();
+        }
+        _bubbleRenderer.material.color = c;
+    }
+
+    private Color GetBubbleColor()
+    {
+        return _bubbleRenderer.material.color;
     }
 
     public void MenuPop()

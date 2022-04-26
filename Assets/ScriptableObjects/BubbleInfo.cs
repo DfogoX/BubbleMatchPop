@@ -1,10 +1,9 @@
+using System;
 using UnityEngine;
 
-namespace ScriptableObjects
+
+[Serializable]
+public class BubbleInfo
 {
-    [CreateAssetMenu(fileName = "BubbleData", menuName = "MENUNAME", order = 0)]
-    public class BubbleInfo : ScriptableObject
-    {
-        
-    }
+    [SerializeField] private Color bubbleColor;
 }

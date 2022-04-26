@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using ScriptableObjects;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager GmInstance { get; private set; }
     private bool isRotating;
+    [SerializeField] private LevelBuilder _levelBuilder;
+    [SerializeField] private LevelData _level;
 
     private void Awake()
     {
@@ -22,6 +22,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (_level != null)
+        {
+            _levelBuilder.BuildLevel(_level);    
+        }
+        
+        
         var plats = FindObjectsOfType<Platform>();
         foreach (var p in plats)
         {

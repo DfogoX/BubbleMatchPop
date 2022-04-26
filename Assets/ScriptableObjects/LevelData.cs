@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -5,7 +6,13 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "LevelData", menuName = "LevelTest", order = 0)]
     public class LevelData : ScriptableObject
     {
-        [SerializeField] private 
-        
+        [SerializeField] private List<PlatformInfo> _platformsInfo;
+
+        public List<PlatformInfo> GetPlatformsInfo()
+        {
+            return _platformsInfo;
+        }
     }
+    
+
 }

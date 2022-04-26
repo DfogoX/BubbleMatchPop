@@ -10,15 +10,24 @@ public class UIScoreSystem : MonoBehaviour
 
     private void Awake()
     {
-        _rotationsText = GameObject.FindWithTag("PlatformRotationsScore").GetComponentInChildren<Text>();
-        if (_rotationsText == null)
+        var rotScore = GameObject.FindWithTag("PlatformRotationsScore");
+        if (rotScore == null)
         {
             Debug.LogWarning($"PlatformRotationsScore Tag not found");
         }
-        _bubblesPoppedText = GameObject.FindWithTag("BubblesPoppedScore").GetComponentInChildren<Text>();
-        if (_bubblesPoppedText == null)
+        else
+        {
+            _rotationsText = rotScore.GetComponentInChildren<Text>();    
+        }
+
+        var popScore = GameObject.FindWithTag("BubblesPoppedScore");
+        if (popScore == null)
         {
             Debug.LogWarning($"BubblesPoppedScore Tag not found");
+        }
+        else
+        {
+            _bubblesPoppedText = popScore.GetComponentInChildren<Text>();
         }
     }
 
@@ -29,11 +38,13 @@ public class UIScoreSystem : MonoBehaviour
 
     public void UpdatePlatformRotationsScore(int platformsRotated)
     {
+        if (_rotationsText == null) return;
         _rotationsText.text = $"Platforms Rotated: {platformsRotated}";
     }
     
     public void UpdateBubblesPoppedScore(int bubblesPopped)
     {
+        if (_bubblesPoppedText == null) return;
         _bubblesPoppedText.text = $"Bubbles Popped: {bubblesPopped}";
     }
 }
