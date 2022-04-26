@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
     {
         if (_lastLevel <= 0) return;
         Debug.Log($"building level {_lastLevel}");
-        _levelBuilder.BuildLevel(_levels[_lastLevel]);
+        _levelBuilder.BuildLevel(_levels[_lastLevel-1]);
         ScoringManager.SmInstance.ScoreSetUp();
     }
 
