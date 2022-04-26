@@ -1,5 +1,6 @@
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class GameManager : MonoBehaviour
     private bool isRotating;
     [SerializeField] private LevelBuilder _levelBuilder;
     [SerializeField] private LevelData[] _levels;
-    private int _levelIndex = 1;
+    private int _levelIndex = 0;
     private int _lastLevel; 
 
     private void Awake()
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
         }
 
         _lastLevel = PlayerPrefs.GetInt("lastlevel");
+        if (_lastLevel == null)
+        {
+            _lastLevel = 1;
+        }
         
         
         var plats = FindObjectsOfType<Platform>();
@@ -60,5 +65,20 @@ public class GameManager : MonoBehaviour
     {
         _levelIndex = index;
     }
+
+    public void LoadNewLevel(int levelIndex)
+    {
+        if (levelIndex == 0)
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        }
+        else
+        {
+            var lv = $"Level {levelIndex}";
+            SceneManager.LoadScene(lv, LoadSceneMode.Additive);
+        }
+        
+    }
+    
 
 }
