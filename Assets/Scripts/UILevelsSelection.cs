@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UILevelsSelection : MonoBehaviour
 {
-    private int _currentLevel;
     private void Start()
     {
         SceneManager.sceneLoaded += OnLoad;
@@ -18,10 +17,11 @@ public class UILevelsSelection : MonoBehaviour
         RefreshLevels();
     }
     
-    private void RefreshLevels()
+    public void RefreshLevels()
     {
-        _currentLevel = GameManager.GmInstance.GetLevelIndex();
-        
+        var _currentLevel = GameManager.GmInstance.GetLevelIndex();
+        Debug.Log($"refreshing for {_currentLevel} levels");
+
         var i = 0;
         foreach (Transform t in transform)
         {

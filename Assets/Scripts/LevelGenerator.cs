@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -33,6 +31,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
+        #if UNITY_EDITOR
         if (update)
         {
             Populate(toUpdateLevel);
@@ -42,15 +41,13 @@ public class LevelGenerator : MonoBehaviour
             var newLevel = ScriptableObject.CreateInstance<LevelData>();
             const string folderPath = "Assets/ScriptableObjects/TestLevels/";
             var filesLength = Directory.GetFiles(folderPath).Length;
-            Debug.Log($"Number of files: {filesLength}");
             var index = filesLength / 2 + 1;
             var path = folderPath + "LevelData.asset";
-            Debug.Log($"Creating file: {path}");
             AssetDatabase.CreateAsset(newLevel, path);
             Populate(newLevel);
-            AssetDatabase.SaveAssets();    
+            AssetDatabase.SaveAssets();
         }
-        
+        #endif
     }
 
     private void Populate(LevelData newLevel)

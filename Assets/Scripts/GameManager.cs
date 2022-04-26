@@ -1,4 +1,5 @@
 using System;
+using DitzeGames.Effects;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,13 +34,11 @@ public class GameManager : MonoBehaviour
 
     private void StartIsRotating()
     {
-        Debug.Log("spinning");
         isRotating = true;
     }
     
     private void EndIsRotating()
     {
-        Debug.Log("stop spin");
         isRotating = false;
     }
 
@@ -51,12 +50,15 @@ public class GameManager : MonoBehaviour
 
     public int GetLevelIndex()
     {
-        return PlayerPrefs.GetInt("lastlevel", 1);
+        var a = PlayerPrefs.GetInt("lastlevel", 1);
+        Debug.Log($"i found max level to be: {a}");
+        return a;
     }
 
     private void SetLevelIndex(int index)
     {
-        PlayerPrefs.SetInt("lastlevel",_lastLevel);
+        PlayerPrefs.SetInt("lastlevel",index);
+        Debug.Log($"max level is now: {index}");
     }
 
     public int GetCurrentLevel()
@@ -67,7 +69,6 @@ public class GameManager : MonoBehaviour
     public void LoadNewLevel(int levelIndex)
     {
         _lastLevel = levelIndex;
-        Debug.Log($"LoadNewLevel");
         if (levelIndex == 0)
         {
             UIManager.UIInstance.InLevelState(false);
@@ -98,7 +99,6 @@ public class GameManager : MonoBehaviour
     private void BuildLevel()
     {
         if (_lastLevel <= 0) return;
-        Debug.Log($"building level {_lastLevel}");
         _levelBuilder.BuildLevel(_levels[_lastLevel-1]);
         ScoringManager.SmInstance.ScoreSetUp();
         var plats = FindObjectsOfType<Platform>();
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelCompleted()
     {
+        CameraEffects.ShakeOnce(1f, 20);
         UIManager.UIInstance.VictoryScreem();
     }
 
@@ -123,6 +124,11 @@ public class GameManager : MonoBehaviour
     {
         if (_lastLevel >= _levels.Length - 1)
         {
+            var lvl = GameObject.FindObjectOfType<UILevelsSelection>();
+            if (lvl != null)
+            {
+                lvl.RefreshLevels();
+            }
             LoadNewLevel(0);
         }
         else
@@ -130,7 +136,9 @@ public class GameManager : MonoBehaviour
             _lastLevel++;
             var curBest = GetLevelIndex();
             Debug.Log($"Actual {_lastLevel} and Best {curBest}");
-            SetLevelIndex(Math.Max(_lastLevel, curBest));
+            var max = Math.Max(_lastLevel, curBest);
+            Debug.Log($"max is {max}");
+            SetLevelIndex(max);
             LoadNewLevel(_lastLevel);
         }
 

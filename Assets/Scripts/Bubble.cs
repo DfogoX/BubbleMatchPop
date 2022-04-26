@@ -1,4 +1,5 @@
 using System;
+using DitzeGames.Effects;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -11,6 +12,7 @@ public class Bubble : MonoBehaviour
     public Action OnBubblePop;
     private Animator _anim;
     [SerializeField] private GameObject bubbleExplosion;
+    private bool _noVibrate;
 
     private void Start()
     {
@@ -72,6 +74,10 @@ public class Bubble : MonoBehaviour
         main.startColor = new ParticleSystem.MinMaxGradient(_bubbleRenderer.material.color);
         trail.colorOverLifetime = new ParticleSystem.MinMaxGradient(_bubbleRenderer.material.color);
         ps.Play();
+        if (!_noVibrate)
+        {
+            CameraEffects.ShakeOnce(.2f, 2);
+        }
 
     }
 
@@ -91,6 +97,7 @@ public class Bubble : MonoBehaviour
 
     public void MenuPop()
     {
+        _noVibrate = true;
         PopBubble();
     }
 }

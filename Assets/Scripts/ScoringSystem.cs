@@ -19,7 +19,7 @@ public class ScoringSystem : MonoBehaviour
         ResetScore();
     }
 
-    private void ResetScore()
+    public void ResetScore()
     {
         platformRotations = 0;
         bubblesPopped = 0;

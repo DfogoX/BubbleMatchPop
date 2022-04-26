@@ -26,6 +26,7 @@ public class ScoringManager : MonoBehaviour
     
     public void ScoreSetUp()
     {
+        totalBubbles = 0; 
         var plats = FindObjectsOfType<Platform>();
         foreach (var p in plats)
         {
@@ -38,12 +39,14 @@ public class ScoringManager : MonoBehaviour
             b.OnBubblePop += BubblePopped;
             totalBubbles++;
         }
+        _scoring.ResetScore();
     }
 
     public void BubblePopped()
     {
         _scoring.IncreaseBubblesPoppedCount();
         UIManager.UIInstance.UpdateBubblesPoppedScore(_scoring.GetBubblesPoppedCount());
+        Debug.Log($"Popped {_scoring.GetBubblesPoppedCount()} out of {totalBubbles}");
         if (_scoring.GetBubblesPoppedCount() == totalBubbles)
         {
             GameManager.GmInstance.LevelCompleted();
