@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         if (GmInstance != null && GmInstance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -72,15 +72,25 @@ public class GameManager : MonoBehaviour
     public void LoadNewLevel(int levelIndex)
     {
         _lastLevel = levelIndex;
-        Debug.Log($"loading with {_lastLevel}");
+        Debug.Log($"LoadNewLevel");
         if (levelIndex == 0)
         {
+            UIManager.UIInstance.InLevelState(false);
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
         else
         {
             var lv = $"Level {levelIndex}";
-            SceneManager.LoadScene(lv, LoadSceneMode.Single);
+            UIManager.UIInstance.InLevelState(true);
+            try
+            {
+                SceneManager.LoadScene(lv, LoadSceneMode.Single);
+            }
+            catch (Exception e)
+            {
+                UIManager.UIInstance.InLevelState(false);
+                SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            }
         }
     }
 
@@ -94,6 +104,7 @@ public class GameManager : MonoBehaviour
         if (_lastLevel <= 0) return;
         Debug.Log($"building level {_lastLevel}");
         _levelBuilder.BuildLevel(_levels[_lastLevel]);
+        ScoringManager.SmInstance.ScoreSetUp();
     }
 
     public void ResumeGame()
@@ -108,10 +119,18 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        _lastLevel++;
-        var curBest = GetLevelIndex();
-        Debug.Log($"Actual {_lastLevel} and Best {curBest}");
-        SetLevelIndex(Math.Max(_lastLevel, curBest));
-        LoadNewLevel(_lastLevel);
+        if (_lastLevel >= _levels.Length - 1)
+        {
+            LoadNewLevel(0);
+        }
+        else
+        {
+            _lastLevel++;
+            var curBest = GetLevelIndex();
+            Debug.Log($"Actual {_lastLevel} and Best {curBest}");
+            SetLevelIndex(Math.Max(_lastLevel, curBest));
+            LoadNewLevel(_lastLevel);
+        }
+
     }
 }

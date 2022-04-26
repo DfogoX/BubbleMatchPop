@@ -6,10 +6,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager UIInstance { get; private set; }
-
-    [SerializeField] private GameObject MenuCanvas;
-    [SerializeField] private GameObject SingleLevelCanvas;
-    [SerializeField] private GameObject LevelsSelectionCanvas;
+    
+    private bool _inLevel;
     private UIScoreSystem _uiScore;
     private GameObject MainMenu;
     private GameObject LevelsMenu;
@@ -29,7 +27,6 @@ public class UIManager : MonoBehaviour
             _uiScore = gameObject.AddComponent<UIScoreSystem>();
             SceneManager.sceneLoaded += OnSceneLoad;
             MainMenu = GameObject.FindWithTag("MainMenu");
-            GameObject.FindWithTag("StartButton").GetComponentInChildren<Text>().text = GameManager.GmInstance.GetLevelIndex() > 1 ? "Continue" : "Start";
             LevelsMenu = GameObject.FindWithTag("LevelsMenu");
             PauseMenu = GameObject.FindWithTag("PauseMenu");
             ScoringMenu = GameObject.FindWithTag("ScoringMenu");
@@ -39,7 +36,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-
+        var o = GameObject.FindWithTag("StartButton").GetComponentInChildren<Text>();
+        o.text = GameManager.GmInstance.GetLevelIndex() > 1 ? "Continue" : "Start";
     }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -49,7 +47,8 @@ public class UIManager : MonoBehaviour
 
     private void UIValidation()
     {
-        if (GameManager.GmInstance.GetLevelIndex() > 1)
+        Debug.Log($"validating with {_inLevel}");
+        if (_inLevel)
         {
             //in level
             MainMenu.SetActive(false);
@@ -103,9 +102,9 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayGame()
+    public void InLevelState(bool state)
     {
-        GameManager.GmInstance.ResumeGame();
+        _inLevel = state;
     }
 
     public void VictoryScreem()

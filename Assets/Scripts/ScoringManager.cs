@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoringManager : MonoBehaviour
 {
@@ -16,25 +17,27 @@ public class ScoringManager : MonoBehaviour
         } 
         else 
         { 
-            SmInstance = this; 
+            SmInstance = this;
+            _scoring = gameObject.AddComponent<ScoringSystem>();
         }
-        _scoring = gameObject.AddComponent<ScoringSystem>();
+        
     }
 
-    private void Start()
+    
+    public void ScoreSetUp()
     {
         var plats = FindObjectsOfType<Platform>();
         foreach (var p in plats)
         {
             p.OnStartRotating += PlatformRotated;
         }
+
         var bubbles = FindObjectsOfType<Bubble>();
         foreach (var b in bubbles)
         {
             b.OnBubblePop += BubblePopped;
             totalBubbles++;
         }
-        
     }
 
     public void BubblePopped()

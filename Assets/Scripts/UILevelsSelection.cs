@@ -8,8 +8,7 @@ public class UILevelsSelection : MonoBehaviour
     private void Start()
     {
         _currentLevel = GameManager.GmInstance.GetLevelIndex();
-
-        var lvs = GetComponentsInChildren<Transform>();
+        
         var i = 0;
         foreach (Transform t in transform)
         {
@@ -25,7 +24,6 @@ public class UILevelsSelection : MonoBehaviour
                 b.enabled = false;
             }
             i++;
-
 
         }
     }
