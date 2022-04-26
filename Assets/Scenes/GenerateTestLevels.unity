@@ -256,9 +256,9 @@ MonoBehaviour:
   - {r: 0.5, g: 0, b: 1, a: 0}
   - {r: 1, g: 0, b: 1, a: 0}
   - {r: 1, g: 0, b: 0.5, a: 0}
-  easy: 0
+  easy: 1
   update: 1
-  toUpdateLevel: {fileID: 11400000, guid: 49d14faa00eba804682936bdbafa1e7f, type: 2}
+  toUpdateLevel: {fileID: 11400000, guid: 164be0c38c287d84b934d96c8af57ff4, type: 2}
 --- !u!4 &1133255702
 Transform:
   m_ObjectHideFlags: 0

@@ -124,5 +124,10 @@ public class UIManager : MonoBehaviour
             VictoryMenu.SetActive(true);
         }
     }
+
+    public void ResetScene()
+    {
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
     
 }

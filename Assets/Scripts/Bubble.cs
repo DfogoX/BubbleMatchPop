@@ -76,7 +76,7 @@ public class Bubble : MonoBehaviour
         ps.Play();
         if (!_noVibrate)
         {
-            CameraEffects.ShakeOnce(.2f, 2);
+            CameraEffects.ShakeOnce(.2f, 1);
         }
 
     }
