@@ -47,7 +47,6 @@ public class UIManager : MonoBehaviour
 
     private void UIValidation()
     {
-        Debug.Log($"validating with {_inLevel}");
         if (_inLevel)
         {
             //in level
@@ -85,6 +84,7 @@ public class UIManager : MonoBehaviour
 
     public void TogglePause()
     {
+        GameManager.GmInstance.SetInputManager(PauseMenu.activeSelf);
         PauseMenu.SetActive(!PauseMenu.activeSelf);
         var t = Time.timeScale;
         Time.timeScale = Math.Abs(t - 1);

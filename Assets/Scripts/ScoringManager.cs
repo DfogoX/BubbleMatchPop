@@ -55,5 +55,5 @@ public class ScoringManager : MonoBehaviour
         _scoring.IncreasePlatformRotationsCount();
         UIManager.UIInstance.UpdatePlatformsRotatedScore(_scoring.GetPlatformRotationsCount());
     }
-    
+
 }

@@ -28,23 +28,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        var plats = FindObjectsOfType<Platform>();
-        foreach (var p in plats)
-        {
-            p.OnStartRotating+= StartIsRotating;
-            p.OnEndRotating += EndIsRotating;
-        }
-
         BuildLevel();
     }
 
     private void StartIsRotating()
     {
+        Debug.Log("spinning");
         isRotating = true;
     }
     
     private void EndIsRotating()
     {
+        Debug.Log("stop spin");
         isRotating = false;
     }
 
@@ -80,7 +75,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            var lv = $"Level {levelIndex}";
+            const string lv = "Level 1";
+            //var lv = $"Level {levelIndex}";
             UIManager.UIInstance.InLevelState(true);
             try
             {
@@ -105,6 +101,12 @@ public class GameManager : MonoBehaviour
         Debug.Log($"building level {_lastLevel}");
         _levelBuilder.BuildLevel(_levels[_lastLevel-1]);
         ScoringManager.SmInstance.ScoreSetUp();
+        var plats = FindObjectsOfType<Platform>();
+        foreach (var p in plats)
+        {
+            p.OnStartRotating+= StartIsRotating;
+            p.OnEndRotating += EndIsRotating;
+        }
     }
 
     public void ResumeGame()
@@ -132,5 +134,10 @@ public class GameManager : MonoBehaviour
             LoadNewLevel(_lastLevel);
         }
 
+    }
+
+    public void SetInputManager(bool state)
+    {
+        GetComponent<InputManager>().enabled = state;
     }
 }

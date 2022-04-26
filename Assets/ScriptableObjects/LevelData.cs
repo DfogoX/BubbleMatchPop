@@ -12,6 +12,11 @@ namespace ScriptableObjects
         {
             return _platformsInfo;
         }
+
+        public void SetPlatformsInfo(List<PlatformInfo> platforms)
+        {
+            _platformsInfo = new List<PlatformInfo>(platforms);
+        }
     }
     
 

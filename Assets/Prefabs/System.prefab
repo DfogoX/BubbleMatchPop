@@ -54,7 +54,15 @@ MonoBehaviour:
   _levelBuilder: {fileID: 1918289904002690071}
   _levels:
   - {fileID: 11400000, guid: 4c1b6c62f1a5ad542a8b544dba73d28f, type: 2}
-  - {fileID: 11400000, guid: 4c1b6c62f1a5ad542a8b544dba73d28f, type: 2}
+  - {fileID: 11400000, guid: 3d290bf78592b074cbce08436fc1d375, type: 2}
+  - {fileID: 11400000, guid: e200c50a1e30f3447b2b1b73a6bc65d8, type: 2}
+  - {fileID: 11400000, guid: 1edf9d1e205380d40a3e3387eb807d83, type: 2}
+  - {fileID: 11400000, guid: 863855f3eb6dbce4a8a504c0ec8cfe1a, type: 2}
+  - {fileID: 11400000, guid: f326ec293c3c6ac44b7797c8f9de3425, type: 2}
+  - {fileID: 11400000, guid: c4272969c0e4a0941a7d5fe335652594, type: 2}
+  - {fileID: 11400000, guid: 3fc45ac4945641e448d9b09bb1d59643, type: 2}
+  - {fileID: 11400000, guid: 9b88b70d6f24a224e8e2de37c6ed82c9, type: 2}
+  - {fileID: 11400000, guid: 49d14faa00eba804682936bdbafa1e7f, type: 2}
 --- !u!114 &4834216461867953904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,9 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced15ea7d22e427bb083f4a51e2f9571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuCanvas: {fileID: 0}
-  SingleLevelCanvas: {fileID: 0}
-  LevelsSelectionCanvas: {fileID: 0}
 --- !u!114 &4834216461867953906
 MonoBehaviour:
   m_ObjectHideFlags: 0

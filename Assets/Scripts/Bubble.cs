@@ -24,7 +24,6 @@ public class Bubble : MonoBehaviour
                 _platform.OnEndRotating += CheckMatch;
             }    
         }
-
         _anim = GetComponent<Animator>();
     }
 
@@ -40,10 +39,11 @@ public class Bubble : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        _touching = true;
         var otherBubble = other.gameObject.GetComponent<Bubble>();
         if (otherBubble != null)
         {
+            _touching = true;
+            //Debug.Log($"{transform.name} is touching {other.name}");
             _lastBubbleTouched = otherBubble;
         }
     }
@@ -66,8 +66,13 @@ public class Bubble : MonoBehaviour
     {
         Destroy(gameObject);
         var explosion = Instantiate(bubbleExplosion, transform.position, Quaternion.identity);
-        var main = explosion.GetComponent<ParticleSystem>().main;
-        main.startColor = _bubbleRenderer.material.color;
+        var ps = explosion.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        var trail = ps.trails;
+        main.startColor = new ParticleSystem.MinMaxGradient(_bubbleRenderer.material.color);
+        trail.colorOverLifetime = new ParticleSystem.MinMaxGradient(_bubbleRenderer.material.color);
+        ps.Play();
+
     }
 
     public void SetBubbleColor(Color c)

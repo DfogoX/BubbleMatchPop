@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoringSystem : MonoBehaviour
 {
@@ -8,6 +9,17 @@ public class ScoringSystem : MonoBehaviour
     
 
     private void Start()
+    {
+        ResetScore();
+        SceneManager.sceneLoaded += OnLoad;
+    }
+
+    private void OnLoad(Scene arg0, LoadSceneMode arg1)
+    {
+        ResetScore();
+    }
+
+    private void ResetScore()
     {
         platformRotations = 0;
         bubblesPopped = 0;

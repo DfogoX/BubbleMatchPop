@@ -11,17 +11,6 @@ public class Platform : MonoBehaviour
     public Action OnStartRotating;
     public Action OnEndRotating;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void RotatePlatform()
     {
         if (GameManager.GmInstance.GetIsRotating()) return;
@@ -34,13 +23,11 @@ public class Platform : MonoBehaviour
         var startRot = transform.rotation;
         var startEuler = startRot.eulerAngles;
         var endRot = Quaternion.Euler(startEuler.x, startEuler.y+60, startEuler.z);
-
         for (float t = 0; t < rotationDuration; t+= Time.fixedDeltaTime) 
         {
             transform.rotation = Quaternion.Lerp(startRot, endRot, t/rotationDuration);
             yield return new WaitForFixedUpdate();    
         }
-
         transform.rotation = endRot;
         OnEndRotating?.Invoke();
     }

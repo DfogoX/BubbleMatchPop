@@ -1,11 +1,24 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UILevelsSelection : MonoBehaviour
 {
     private int _currentLevel;
     private void Start()
+    {
+        SceneManager.sceneLoaded += OnLoad;
+        RefreshLevels();
+
+    }
+
+    private void OnLoad(Scene arg0, LoadSceneMode arg1)
+    {
+        RefreshLevels();
+    }
+    
+    private void RefreshLevels()
     {
         _currentLevel = GameManager.GmInstance.GetLevelIndex();
         
@@ -24,9 +37,6 @@ public class UILevelsSelection : MonoBehaviour
                 b.enabled = false;
             }
             i++;
-
         }
     }
-
-
 }
